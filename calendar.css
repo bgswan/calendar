@@ -8,6 +8,10 @@
   border-bottom: solid 4px white;
 }
 
+#calendar-container #scroll-back:hover {
+  background: darkgrey;
+}
+
 #calendar-container #scroll-back #scroll-back-arrow {
   border-color: transparent transparent white;
   border-style: solid;
@@ -21,6 +25,10 @@
   background: lightgrey;
   padding: 5px;
   border-top: solid 4px white;
+}
+
+#calendar-container #scroll-forward:hover {
+  background: darkgrey;
 }
 
 #calendar-container #scroll-forward #scroll-forward-arrow {
@@ -59,7 +67,7 @@
   min-width: 5.5em;
 }
 
-#calendar .month-title {
+#calendar .year {
   border-right: solid 4px white;
   min-width: 5.5em;
 }

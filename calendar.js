@@ -1,7 +1,7 @@
 var visibleCalendar = {
   weeks : [],
   
-  initWeeks : function() {
+  init : function() {
     for(var i = 0; i < 7; i++) {
       this.weeks.push(this.weekIncluding(new XDate().addDays(7*i)));
     }
@@ -33,6 +33,19 @@ var visibleCalendar = {
   back : function() {  
     this.weeks.unshift(this.weekIncluding(this.firstWeek()[0].addDays(-1))); // add a week before the first week
     this.weeks.pop(); // remove the last week
+  }, 
+  
+  years : function() {
+    // find the unique years
+    return this.weeks.reduce(function(memo, week) {      
+      week.forEach(function(day) {
+        var y = day.toString('yyyy');
+        if (memo.indexOf(y) === -1) {
+          memo.push(y);
+        }        
+      });
+      return memo;
+    }, []).join('-');    
   }
 };
 
@@ -77,35 +90,40 @@ var firstOfMonth = function(week) {
 }
 
 var timer;
+var speed = 100;
 
 var scrollForward = function() {
   visibleCalendar.forward();
+  $('#calendar .year').text(visibleCalendar.years());
   $('#calendar tbody tr:last').after(toRow(visibleCalendar.lastWeek()));
   $('#calendar tbody tr:first').remove();
 }
 
 var scrollBack = function() {
   visibleCalendar.back();
+  $('#calendar .year').text(visibleCalendar.years());
   $('#calendar tbody tr:first').before(toRow(visibleCalendar.firstWeek()));
   $('#calendar tbody tr:last').remove();
 }
 
 $(document).ready(function() {
-  visibleCalendar.initWeeks();
+  visibleCalendar.init();
+  
+  $('#calendar .year').text(visibleCalendar.years());
   
   visibleCalendar.weeks.forEach(function(week) {
     $('#calendar tbody').append(toRow(week));
   });
   
-  $('#calendar-container #scroll-forward').mouseenter(function() {
-    timer = setInterval('scrollForward()', 250);
-  }).mouseout(function() {
+  $('#calendar-container #scroll-forward').mousedown(function() {
+    timer = setInterval('scrollForward()', speed);
+  }).mouseup(function() {
     clearInterval(timer);
   });
 
-  $('#calendar-container #scroll-back').mouseenter(function() {
-    timer = setInterval('scrollBack()', 250);
-  }).mouseout(function() {
+  $('#calendar-container #scroll-back').mousedown(function() {
+    timer = setInterval('scrollBack()', speed);
+  }).mouseup(function() {
     clearInterval(timer);
   });
 });
