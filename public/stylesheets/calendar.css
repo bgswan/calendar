@@ -53,16 +53,22 @@
   padding: 3px;
 }
 
+#calendar tr {
+  border-top: solid 2px white;
+  border-bottom: solid 2px white;
+}
+
 #calendar td {
   text-align: left;
   min-width: 1.5em;
-  padding: 3px;
+  padding: 2px 3px 2px 3px;
 }
 
 #calendar .month-name {
   text-align: left;
   background: lightblue;
   padding-right: 2em;
+  border: solid 2px lightblue;
   border-right: solid 4px white;
   min-width: 5.5em;
 }
@@ -74,13 +80,15 @@
 
 #calendar .first-of-month {
   background: lightblue;
-}
-
-#calendar .end-of-month {
+  border-top: solid 2px lightblue;
   border-bottom: solid 2px lightblue;
 }
 
-#calendar .start-of-month {
+#calendar td.end-of-month {
+  border-bottom: solid 2px lightblue;
+}
+
+#calendar td.start-of-month {
   border-top: solid 2px lightblue;
 }
 
